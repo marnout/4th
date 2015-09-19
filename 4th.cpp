@@ -353,18 +353,18 @@ int main(int argc, char * argv[])
 
 	char opt; // for getopt
 	int index; // for non options arguments
-	Machine fz;
+	Machine frth;
 	// options
 	while ((opt = getopt(argc, argv, "l:hv")) != -1) {
 		switch (opt) {
 			case 'l':
-				fz.load(optarg);
+				frth.load(optarg);
 				break;
 			case 'h':
 				usage(argv[0]);
 				break;
 			case 'v':
-				fz.showstack = true;
+				frth.showstack = true;
 				break;
 			default: /* '?' */
 				cout << "Usage: " << argv[0];
@@ -374,21 +374,22 @@ int main(int argc, char * argv[])
 	} // while getopt
 	// non option arguments
 	for(index = optind; index < argc; index++) {
-		fz.load(argv[optind]);
+		frth.load(argv[optind]);
 	}
 
 
 	string line;
 	char * buffer;
-	// fz.load("zob.fz");
-	cout << "\nLanguage Fz - 0.1 -  Mourad Arnout - GNU-GPL -\n";
-	cout << "Type \"bye\" to quit\n";
+	// frth.load("zob.frth");
+	cout << "\n" << PROJECT << " - " << VERSION << " - ";
+	cout << AUTHOR << " - GNU-GPL -\n";
+	cout << "Type \"bye\" to quit or help to get help\n";
 	while((buffer = readline("\n> ")) != NULL) {
 		if((strcmp(buffer,"bye") == 0)) break;
 		add_history(buffer);
 		line.assign(buffer);
-		fz.read(line);
-		fz.show();
+		frth.read(line);
+		frth.show();
 	}
 
 	free(buffer);

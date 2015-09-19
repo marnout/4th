@@ -5,7 +5,8 @@ To compile you must install libreadline :
 	# apt install libreadline-gplv2-dev 
 	$ g++ machine.cpp -std=c++14 -lreadline -Wfatal-errors -o machine
 */
-#define VERSION 0.1
+#define PROJECT "4th"
+#define VERSION 0.2
 #define AUTHOR "Mourad Arnout"
 
 
