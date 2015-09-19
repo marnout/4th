@@ -1,0 +1,107 @@
+COMPILE:
+
+To compile you must install libreadline :
+	# apt install libreadline-gplv2-dev 
+Then use g++ like this :
+	$ g++ 4th.cpp -std=c++14 -lreadline -Wfatal-errors -o 4th
+
+COMMAND LINE
+
+Uage ./4th [options] [FILE] ...
+Options : 
+       -v verbose: diplay the stack contents all time
+		 -h this help
+	    -l FILE: load script file
+
+INTRODUCTION
+
+Type help to get help in 4th
+
+4th is an extension of a subset of Forth
+Documentation available at https://en.wikipedia.org/wiki/Forth_%28programming_language%29
+
+The most obvious feature of 4th is the stack. When you enter a number and hit enter, it is pushed on the stack. 
+
+In this introduction, I will display the stack horizontally rather than like 4th does.
+
+Examples :
+
+> 12 9 48 
+Stack :  12 9 48 
+
+> dup
+Stack :  12 9 48 48
+
+> drop
+Stack :  12 9 48 
+
+Addition :
+> +
+Stack :  12 57
+
+> -
+Stack : 45
+
+Fibonacchi 
+
+> 1 1 2 3 5 \ firsts terms 
+> over	\ put the latter over the Stack: 1 1 2 3 5 3
+> over	\ Stack: 1 1 2 3 5 3 5
+> + 		\ add the top and the second,  Stack: 1 1 2 3 5 8
+
+REFERENCE
+
+\ this is a comment. 
+
+Arithmetic
+----------
+12 9 +		\ 21 
+48 7 -		\ -41 
+12 3 *		\ 36 
+4 60 /		\ 15 
+4 27 %		\ 3
+
+Stack maniplulations
+--------------------
+1 2 3 dup 	\ duplicate, stack: 1 2 3 3
+1 2 3 swap	\ swap the top with the second, stack: 1 3 2 		
+1 2 3 rot	\ rotate the 3 elements, stack: 3²²: 1 2
+1 2 3 drop	\ remove the top, stack: 1 2
+1 2 3 over	\ duplique the second on the top, stack: 1 2 3 2
+1 2 3 .		\ 3 ok, drop and print, stack: 1 2
+
+." <text> " \ print <text>
+
+Words
+-----
+Syntax: ': word todo ;'
+> : fibo over over + ;	\ fibo over over + ; ok
+> 1 1 2 3 5 fibo		\ 8 ok
+> : addsqr dup * over dup * + ; \ addsqr dup * over dup * +
+> 3 4 addsqr 	\ 25 ok
+> see addsqr	\ : addsqr dup * over dup * + ; ok
+
+Conditionals
+------------
+0 == false, else true
+> 1 2 =		\ 0 ok
+> 12 12 =	\ -1 ok (-1 == true)
+> 1 2 >		\ -1
+
+Unlike Forth if .. then .. else can be used anywhere
+Syntax: <condition> if <to do if true> then <to do if false> else
+
+: syracuse 2 over % if dup 3 * 1 + then 2 over / else ;
+> 11 syracuse 	\ 34 ok
+> syracuse		\ 17
+> syracuse		\ 52
+
+Loops
+-----
+> 7 0 do i * loop	\ stack: 0 1 4 9 16 25 36
+> 3 0 do drop loop	\ stack: 0 1 4 9
+
+Syntax: <end> <begin> do <to do> loop
+Unlike Forth do .. loop can be used on the fly, anaywhere.
+
+
