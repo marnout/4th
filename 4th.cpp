@@ -4,7 +4,7 @@ File : 4th.cpp
 To compile you must install libreadline :
 	# apt install libreadline-gplv2-dev 
 	$ g++ 4th.cpp -std=c++14 -lreadline -Wfatal-errors -o 4th
-http://www.grognon.net
+http://arad.free.fr
 */
 
 #include "4th.h"
